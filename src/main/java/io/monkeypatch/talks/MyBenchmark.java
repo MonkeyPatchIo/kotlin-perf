@@ -31,20 +31,49 @@
 
 package io.monkeypatch.talks;
 
+import io.monkeypatch.talks.factorial.JavaFactorial;
 import org.openjdk.jmh.annotations.Benchmark;
+import org.openjdk.jmh.infra.Blackhole;
+
+import static io.monkeypatch.talks.factorial.For_factorialKt.forFactorial;
+import static io.monkeypatch.talks.factorial.Rec_factorialKt.recFactorial;
+import static io.monkeypatch.talks.factorial.Tailrec_factorialKt.tailRecFactorial;
 
 public class MyBenchmark {
 
     private static final String[] ARGS = new String[0];
 
+    private static final int FACTORIAL = 10;
+
     @Benchmark
-    public void testJava() {
+    public void helloJava() {
         HelloWorld.main(ARGS);
     }
 
     @Benchmark
-    public void testKotlin() {
+    public void helloKotlin() {
         HelloWorldKt.main(ARGS);
     }
+
+    @Benchmark
+    public void factorialJava(Blackhole blackHole) {
+        blackHole.consume(JavaFactorial.javaFactorial(FACTORIAL));
+    }
+
+    @Benchmark
+    public void factorialKotlinFor(Blackhole blackHole) {
+        blackHole.consume(forFactorial(FACTORIAL));
+    }
+
+    @Benchmark
+    public void factorialKotlinRec(Blackhole blackHole) {
+        blackHole.consume(recFactorial(FACTORIAL));
+    }
+
+    @Benchmark
+    public void factorialKotlinTailRec(Blackhole blackHole) {
+        blackHole.consume(tailRecFactorial(FACTORIAL));
+    }
+
 
 }
