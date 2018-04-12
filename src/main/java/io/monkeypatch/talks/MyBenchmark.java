@@ -35,6 +35,8 @@ import io.monkeypatch.talks.factorial.JavaFactorial;
 import org.openjdk.jmh.annotations.Benchmark;
 import org.openjdk.jmh.infra.Blackhole;
 
+import static io.monkeypatch.talks.astronomy.OperationKt.getMoons;
+import static io.monkeypatch.talks.astronomy.OperationKt.getMoons2;
 import static io.monkeypatch.talks.factorial.For_factorialKt.forFactorial;
 import static io.monkeypatch.talks.factorial.Rec_factorialKt.recFactorial;
 import static io.monkeypatch.talks.factorial.Tailrec_factorialKt.tailRecFactorial;
@@ -45,6 +47,7 @@ public class MyBenchmark {
 
     private static final int FACTORIAL = 10;
 
+    // Hello World
     @Benchmark
     public void helloJava() {
         HelloWorld.main(ARGS);
@@ -55,6 +58,7 @@ public class MyBenchmark {
         HelloWorldKt.main(ARGS);
     }
 
+    // Factorial
     @Benchmark
     public void factorialJava(Blackhole blackHole) {
         blackHole.consume(JavaFactorial.javaFactorial(FACTORIAL));
@@ -75,5 +79,15 @@ public class MyBenchmark {
         blackHole.consume(tailRecFactorial(FACTORIAL));
     }
 
+    // Sequence
 
+    @Benchmark
+    public void collectionApiClassic(Blackhole blackHole) {
+        blackHole.consume(getMoons());
+    }
+
+    @Benchmark
+    public void collectionApiSequence(Blackhole blackHole) {
+        blackHole.consume(getMoons2());
+    }
 }
