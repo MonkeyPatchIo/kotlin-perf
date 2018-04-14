@@ -17,3 +17,21 @@ fun getMoons2(): String =
         .sortedBy { it.name }
         .joinToString(",\n") { it.name }
 
+fun getFirstMoonName(): String =
+    SolarSystem.bodies
+        .filterIsInstance<Planet>()
+        .flatMap { planet -> planet.moons }
+        .filterNot { it.name.startsWith("S/") }
+//        .sortedBy { it.name }
+        .map { it.name }
+        .first()
+
+fun getFirstMoonName2(): String =
+    SolarSystem.bodies.asSequence()
+        .filterIsInstance<Planet>()
+        .flatMap { planet -> planet.moons.asSequence() }
+        .filterNot { it.name.startsWith("S/") }
+//        .sortedBy { it.name }
+        .map { it.name }
+        .first()
+
