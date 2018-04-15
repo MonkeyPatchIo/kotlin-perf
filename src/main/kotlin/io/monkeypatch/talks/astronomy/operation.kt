@@ -22,7 +22,6 @@ fun getFirstMoonName(): String =
         .filterIsInstance<Planet>()
         .flatMap { planet -> planet.moons }
         .filterNot { it.name.startsWith("S/") }
-//        .sortedBy { it.name }
         .map { it.name }
         .first()
 
@@ -31,7 +30,6 @@ fun getFirstMoonName2(): String =
         .filterIsInstance<Planet>()
         .flatMap { planet -> planet.moons.asSequence() }
         .filterNot { it.name.startsWith("S/") }
-//        .sortedBy { it.name }
         .map { it.name }
         .first()
 
@@ -47,16 +45,25 @@ fun <T> timed(block: () -> T) {
 
 
 fun main(args: Array<String>) {
+    fun Long.toMB(): String =
+        "${this / 1048576}MB"
+
+    fun Runtime.usedMemory(): String =
+        (totalMemory() - freeMemory()).toMB()
+
+    fun Runtime.getMemoryInfo(): String =
+        "used: ${usedMemory()}, total: ${totalMemory().toMB()}"
+
     timed {
         (0..1_000_000)
-                .asSequence()
-                .onEach {
-                    if (it % 10_000 == 0) {
-                        println("${(Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory()) / 1048576}MB / ${Runtime.getRuntime().totalMemory() / 1048576}MB")
-                    }
-                    println(it)
+            .asSequence()
+            .onEach {
+                if (it % 10_000 == 0) {
+                    println(Runtime.getRuntime().getMemoryInfo())
                 }
-                .map { Moon(it.toString()) }
-                .first()
+                println(it)
+            }
+            .map { Moon(it.toString()) }
+            .last()
     }
 }
