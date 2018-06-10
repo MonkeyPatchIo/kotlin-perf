@@ -35,7 +35,7 @@ import io.monkeypatch.talks.factorial.JavaFactorial;
 import org.openjdk.jmh.annotations.Benchmark;
 import org.openjdk.jmh.infra.Blackhole;
 
-import static io.monkeypatch.talks.astronomy.OperationKt.*;
+import static io.monkeypatch.talks.factorial.FoldFactorialKt.reduceFactorial;
 import static io.monkeypatch.talks.factorial.For_factorialKt.forFactorial;
 import static io.monkeypatch.talks.factorial.Rec_factorialKt.recFactorial;
 import static io.monkeypatch.talks.factorial.Tailrec_factorialKt.tailRecFactorial;
@@ -47,20 +47,35 @@ public class MyBenchmark {
     private static final int FACTORIAL = 10;
 
     // Hello World
-    @Benchmark
-    public void helloJava() {
-        HelloWorld.main(ARGS);
-    }
-
-    @Benchmark
-    public void helloKotlin() {
-        HelloWorldKt.main(ARGS);
-    }
+//    @Benchmark
+//    public void helloJava() {
+//        HelloWorld.main(ARGS);
+//    }
+//
+//    @Benchmark
+//    public void helloKotlin() {
+//        HelloWorldKt.main(ARGS);
+//    }
 
     // Factorial
     @Benchmark
-    public void factorialJava(Blackhole blackHole) {
+    public void factorialJavaFor(Blackhole blackHole) {
         blackHole.consume(JavaFactorial.javaFactorial(FACTORIAL));
+    }
+
+    @Benchmark
+    public void factorialJavaRec(Blackhole blackHole) {
+        blackHole.consume(JavaFactorial.javaRecursionFactorial(FACTORIAL));
+    }
+
+    @Benchmark
+    public void factorialJavaTailRec(Blackhole blackHole) {
+        blackHole.consume(JavaFactorial.javaTailRecursionFactorial(FACTORIAL));
+    }
+
+    @Benchmark
+    public void factorialJavaReduce(Blackhole blackHole) {
+        blackHole.consume(JavaFactorial.javaReduceFactorial(FACTORIAL));
     }
 
     @Benchmark
@@ -78,25 +93,30 @@ public class MyBenchmark {
         blackHole.consume(tailRecFactorial(FACTORIAL));
     }
 
-    // Sequence
     @Benchmark
-    public void collectionApiClassic(Blackhole blackHole) {
-        blackHole.consume(getMoons());
+    public void factorialKotlinReduce(Blackhole blackHole) {
+        blackHole.consume(reduceFactorial(FACTORIAL));
     }
 
-    @Benchmark
-    public void collectionApiSequence(Blackhole blackHole) {
-        blackHole.consume(getMoons2());
-    }
+    // Sequence
+//    @Benchmark
+//    public void collectionApiClassic(Blackhole blackHole) {
+//        blackHole.consume(getMoons());
+//    }
+//
+//    @Benchmark
+//    public void collectionApiSequence(Blackhole blackHole) {
+//        blackHole.consume(getMoons2());
+//    }
 
     // Sequence 2
-    @Benchmark
-    public void collectionApiClassicFirst(Blackhole blackHole) {
-        blackHole.consume(getFirstMoonName());
-    }
-
-    @Benchmark
-    public void collectionApiSequenceFirst(Blackhole blackHole) {
-        blackHole.consume(getFirstMoonName2());
-    }
+//    @Benchmark
+//    public void collectionApiClassicFirst(Blackhole blackHole) {
+//        blackHole.consume(getFirstMoonName());
+//    }
+//
+//    @Benchmark
+//    public void collectionApiSequenceFirst(Blackhole blackHole) {
+//        blackHole.consume(getFirstMoonName2());
+//    }
 }
