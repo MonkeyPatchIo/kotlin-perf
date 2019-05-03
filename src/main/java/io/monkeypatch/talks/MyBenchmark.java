@@ -47,15 +47,15 @@ public class MyBenchmark {
     private static final int FACTORIAL = 10;
 
     // Hello World
-//    @Benchmark
-//    public void helloJava() {
-//        HelloWorld.main(ARGS);
-//    }
-//
-//    @Benchmark
-//    public void helloKotlin() {
-//        HelloWorldKt.main(ARGS);
-//    }
+   @Benchmark
+   public void helloJava() {
+       HelloWorld.main(ARGS);
+   }
+
+   @Benchmark
+   public void helloKotlin() {
+       HelloWorldKt.main(ARGS);
+   }
 
     // Factorial
     @Benchmark
@@ -99,24 +99,24 @@ public class MyBenchmark {
     }
 
     // Sequence
-//    @Benchmark
-//    public void collectionApiClassic(Blackhole blackHole) {
-//        blackHole.consume(getMoons());
-//    }
+//   @Benchmark
+//   public void collectionApiClassic(Blackhole blackHole) {
+//       blackHole.consume(getMoons());
+//   }
 //
-//    @Benchmark
-//    public void collectionApiSequence(Blackhole blackHole) {
-//        blackHole.consume(getMoons2());
-//    }
+//   @Benchmark
+//   public void collectionApiSequence(Blackhole blackHole) {
+//       blackHole.consume(getMoons2());
+//   }
 
     // Sequence 2
-//    @Benchmark
-//    public void collectionApiClassicFirst(Blackhole blackHole) {
-//        blackHole.consume(getFirstMoonName());
-//    }
+//   @Benchmark
+//   public void collectionApiClassicFirst(Blackhole blackHole) {
+//       blackHole.consume(getFirstMoonName());
+//   }
 //
-//    @Benchmark
-//    public void collectionApiSequenceFirst(Blackhole blackHole) {
-//        blackHole.consume(getFirstMoonName2());
-//    }
+//   @Benchmark
+//   public void collectionApiSequenceFirst(Blackhole blackHole) {
+//       blackHole.consume(getFirstMoonName2());
+//   }
 }

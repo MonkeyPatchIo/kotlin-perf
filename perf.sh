@@ -4,5 +4,5 @@
 mvn clean package
 
 # run bench
-java -jar target/benchmarks.jar -o perf.txt > /dev/null
+java -jar target/benchmarks.jar -rf json
 
